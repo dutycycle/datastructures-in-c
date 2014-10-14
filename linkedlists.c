@@ -157,7 +157,7 @@ int get_node_at_index(Node_t *head, int index) {
   Deallocate a list and null the head pointer.
 */
 
-void delete_list(Node **head_ref) {
+void delete_list(Node_t **head_ref) {
   Node_t *cur = *head_ref;
   Node_t *next = NULL;
   
@@ -169,6 +169,24 @@ void delete_list(Node **head_ref) {
 
   *head_ref = NULL;
 }
+
+/*
+  Exercise 4: Pop
+
+  Given non-empty list, delete the head node and return its data.
+*/
+
+int pop(Node_t **head_ref) {
+  Node_t *head = *head_ref;
+
+  *head_ref = head -> next;
+
+  int data = head -> data;
+  free(head);
+
+  return data;
+}
+  
 
 int main() {
   Node_t *head = malloc(sizeof(Node_t));
@@ -187,6 +205,10 @@ int main() {
   print_linked_list(head);
 
   recurse_reverse_linked_list(&head);
+
+  print_linked_list(head);
+
+  printf("%d\n", pop(&head));
 
   print_linked_list(head);
 }
