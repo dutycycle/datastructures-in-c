@@ -186,7 +186,37 @@ int pop(Node_t **head_ref) {
 
   return data;
 }
+
+/*
+  Exercise 5: InsertNth
+
+  Insert new node at the specificed index within the list.
+*/
+
+void insertNth(Node_t **head_ref, int index, int value) {
+  Node_t *cur = *head_ref;
+  Node_t *prev = NULL;
+  Node_t *next = NULL;
   
+  // move to the specified index, keeping track of previous node
+  
+  for (int i = 0; i < index; i++) {
+    prev = cur;
+    cur = cur -> next;
+  }
+
+  // insert at the current index, pointing to any existing node
+
+  Node_t *new = malloc(sizeof(new));
+  new -> data = value;
+  new -> next = cur;
+  
+  if (prev == NULL) {
+    *head_ref = new;
+  } else {
+    prev -> next = new;
+  }
+}
 
 int main() {
   Node_t *head = malloc(sizeof(Node_t));
@@ -197,19 +227,20 @@ int main() {
   insert_at_tail(head, 6);
   insert_at_head(&head, 4);
   insert_after_value(head, 4, 7);
-  
   print_linked_list(head);
 
   reverse_linked_list(&head);
-
   print_linked_list(head);
 
   recurse_reverse_linked_list(&head);
-
   print_linked_list(head);
 
   printf("%d\n", pop(&head));
+  print_linked_list(head);
 
+  insertNth(&head, 0, 13);
+  insertNth(&head, 1, 42);
+  insertNth(&head, 1, 5);
   print_linked_list(head);
 }
 
