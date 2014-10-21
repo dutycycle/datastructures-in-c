@@ -218,6 +218,44 @@ void insertNth(Node_t **head_ref, int index, int value) {
   }
 }
 
+/*
+  Exercise 6: Sorted Insert
+
+  Given a list that is sorted in increasing order, insert the element
+  such that the sorted order of the list is maintained.
+*/
+
+void sortedInsert(Node_t **head_ref, int value) {
+  Node_t *cur = *head_ref;
+  Node_t *next = NULL;
+  Node_t *prev = NULL;
+
+  Node_t *new = malloc(sizeof(new));
+  new -> data = value;
+  new -> next = NULL;
+
+  while (cur != NULL && cur -> data < value) {
+    prev = cur;
+    cur = cur -> next;
+  }
+
+  if (cur == NULL && prev == NULL) {
+    // empty list passed in
+    *head_ref = new;
+  } else if (cur == NULL && prev != NULL) {
+    // value is bigger than everything in list; insert at end
+    prev -> next = new;
+  } else if (cur != NULL && prev == NULL) {
+    // value is smaller than everything in list; insert at beginning
+    new -> next = cur;
+    *head_ref = new;
+  } else if (cur != NULL && prev != NULL) {
+    // insert before cur
+    new -> next = cur;
+    prev -> next = new;
+  }
+}
+
 int main() {
   Node_t *head = malloc(sizeof(Node_t));
 
@@ -238,9 +276,14 @@ int main() {
   printf("%d\n", pop(&head));
   print_linked_list(head);
 
-  insertNth(&head, 0, 13);
-  insertNth(&head, 1, 42);
+  insertNth(&head, 0, 1);
+  insertNth(&head, 1, 6);
   insertNth(&head, 1, 5);
+  print_linked_list(head);
+
+  sortedInsert(&head, 2);
+  sortedInsert(&head, 0);
+  sortedInsert(&head, 1000);
   print_linked_list(head);
 }
 
