@@ -256,13 +256,31 @@ void sortedInsert(Node_t **head_ref, int value) {
   }
 }
 
+/* Exercise 7: InsertSort
+
+   Given a list, rearrange its node so they are sorted in increasing
+   order, utlizing the sortedInsert function.
+*/
+
+void insertSort(Node_t **head_ref) {
+  Node_t *cur = *head_ref;
+  Node_t *next = NULL;
+  
+  while (cur != NULL) {
+    next = cur -> next;
+    int data = pop(head_ref);
+    sortedInsert(head_ref, data);
+    cur = next;
+  }
+}
+
 int main() {
   Node_t *head = malloc(sizeof(Node_t));
 
   head -> data = 5;
   head -> next = NULL;
 
-  insert_at_tail(head, 6);
+  insert_at_tail(head, 600);
   insert_at_head(&head, 4);
   insert_after_value(head, 4, 7);
   print_linked_list(head);
@@ -283,7 +301,10 @@ int main() {
 
   sortedInsert(&head, 2);
   sortedInsert(&head, 0);
-  sortedInsert(&head, 1000);
+  sortedInsert(&head, -1);
+  print_linked_list(head);
+
+  insertSort(&head);
   print_linked_list(head);
 }
 
