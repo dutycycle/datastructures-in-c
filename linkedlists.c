@@ -268,8 +268,8 @@ void insertSort(Node_t **head_ref) {
   
   while (cur != NULL) {
     next = cur -> next;
-    int data = pop(head_ref);
-    sortedInsert(head_ref, data);
+    int data = pop(&cur);
+    sortedInsert(&cur, data);
     cur = next;
   }
 }
